@@ -16,6 +16,7 @@ create-export:
 	gcloud --project=$$PROJECT beta service-management enable cloudfunctions.googleapis.com
 
 deploy-function:
+	cd function && \
 	gcloud --project=$$PROJECT beta functions deploy gcp-alert-service \
 		--stage-bucket $$PROJECT-gcp-alert-service --trigger-topic gcp-alert-service \
 		--entry-point=pubsubLogSink --region=us-central1
