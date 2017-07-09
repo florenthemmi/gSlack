@@ -21,7 +21,7 @@ exports.pubsubLogSink = function (event, callback) {
                 let clonedData = JSON.parse(JSON.stringify(data));
                 if (runTest(test.test, clonedData)) {
                     let message = evalMessage(test.message, clonedData);
-                    return sendSlack(test.slackChannel, message, config.slackAPIToken);
+                    return sendSlack(config.slackChannel, message, config.slackAPIToken);
                 }
                 else {
                     return Promise.resolve();
