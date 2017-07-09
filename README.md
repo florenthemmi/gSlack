@@ -16,11 +16,11 @@
 - Enter a name for the bot to post with. (i.e. gcp-alert-service)
 - Click `Add bot integration`.
 - Wait until the UI displays the `API Token` and copy the string (i.e. xxxx-yyyyyyyyyyyy-zzzzzzzzzzzzzzzzzzzzzzzz)
-- Configure the deployment configuration using the [Datastore UI](https://console.cloud.google.com/datastore) by adding a Config {"name":"slackAPIToken","value":"<YOUR_SLACK_API_TOKEN>"} entity.
+- Configure the deployment configuration using the [Datastore UI](https://console.cloud.google.com/datastore) by adding a GSlackConfig {"name":"slackAPIToken","value":"<YOUR_SLACK_API_TOKEN>"} entity.
 ## Datastore configuration
 
-- Config {"name":"slackAPIToken","value":"...."} (exactly 1)
-- Test {"slackChannel":"...","test":"...","message":"..."} (1 or more)
+- GSlackConfig {"name":"slackAPIToken","value":"...."} (exactly 1)
+- GSlackTest {"slackChannel":"...","test":"...","message":"..."} (1 or more)
 
 `test` Must be a a valid JS expression that returns a boolean. If it returns true the test passes. e.g. `$.protoPayload.serviceName==='cloudfunctions.googleapis.com'`
 

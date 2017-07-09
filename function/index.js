@@ -36,7 +36,7 @@ exports.pubsubLogSink = function (event, callback) {
 function getConfig() {
     const Datastore = require('@google-cloud/datastore');
     const ds = Datastore();
-    const query = ds.createQuery(['Config']);
+    const query = ds.createQuery(['GSlackConfig']);
     return runDSQuery(ds, query).then(configsArray => {
         return configsArray.reduce((configs, config) => {
             configs[config.name] = config.value;
@@ -48,7 +48,7 @@ function getConfig() {
 function getTests() {
     const Datastore = require('@google-cloud/datastore');
     const ds = Datastore();
-    const query = ds.createQuery(['Test']);
+    const query = ds.createQuery(['GSlackTest']);
     return runDSQuery(ds, query);
 }
 
