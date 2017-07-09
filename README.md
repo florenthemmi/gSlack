@@ -20,7 +20,7 @@
 ## Datastore configuration
 
 - GSlackConfig {"name":"slackAPIToken","value":"...","slackChannel":"..."} (exactly 2)
-- GSlackTest {"test":"...","message":"..."} (1 or more)
+- GSlackTest {"enabled:true","test":"...","message":"..."} (1 or more)
 
 `test` Must be a a valid JS expression that returns a boolean. If it returns true the test passes. e.g. `$.protoPayload.serviceName==='cloudfunctions.googleapis.com'`
 
@@ -114,6 +114,8 @@ The information received by the function for the log entry is something like thi
 Display bucket name, created/deleted, location, project and by who.
 ```
 {
+    enabled:true,
+
     test:"$.protoPayload.serviceName==='storage.googleapis.com' && ( $.protoPayload.methodName==='storage.buckets.create' || $.protoPayload.methodName==='storage.buckets.delete')",
     
     message:"Bucket '${$.resource.labels.bucket_name}' was ${$.protoPayload.methodName==='storage.buckets.create'?'created':'deleted'} at location '${$.resource.labels.location}' by '${$.protoPayload.authenticationInfo.principalEmail}' in project '${$.resource.labels.project_id}'"
@@ -124,6 +126,8 @@ Display bucket name, created/deleted, location, project and by who.
 Display instance name, started/stopped, zone, project and by who.
 ```
 {
+    enabled:true,
+
     test:"$.protoPayload.serviceName==='compute.googleapis.com' && ( $.protoPayload.methodName==='v1.compute.instances.start' || $.protoPayload.methodName==='v1.compute.instances.stop') && $.operation.last",
     
     message:"Instance '${$.protoPayload.resourceName.split('/').slice(-1)[0]}' was ${$.protoPayload.methodName==='v1.compute.instances.start'?'started':'stopped'} at zone '${$.resource.labels.zone}' by '${$.protoPayload.authenticationInfo.principalEmail}' in project '${$.resource.labels.project_id}'"
@@ -134,6 +138,8 @@ Display instance name, started/stopped, zone, project and by who.
 Display project, module, version and by who.
 ```
 {
+    enabled:true,
+
     test:"$.protoPayload.serviceName==='appengine.googleapis.com' && $.protoPayload.methodName==='google.appengine.v1.Versions.CreateVersion' && $.operation.last",
     
     message:"Google AppEngine version created with version ID '${$.resource.labels.version_id}' for module '${$.resource.labels.module_id}' by '${$.protoPayload.authenticationInfo.principalEmail}' in project '${$.resource.labels.project_id}'"

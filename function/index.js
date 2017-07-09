@@ -19,7 +19,7 @@ exports.pubsubLogSink = function (event, callback) {
         .then(([config, tests]) => {
             return Promise.all(tests.map(test => {
                 let clonedData = JSON.parse(JSON.stringify(data));
-                if (runTest(test.test, clonedData)) {
+                if (test.enabled && runTest(test.test, clonedData)) {
                     let message = evalMessage(test.message, clonedData);
                     return sendSlack(config.slackChannel, message, config.slackAPIToken);
                 }
