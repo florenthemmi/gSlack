@@ -1,5 +1,5 @@
 {
-  "name": "gcp-alert-service",
+  "name": "gslack",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/doitintl/gcp-alert-service.git"
+    "url": "git+https://github.com/florenthemmi/gSlack.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/doitintl/gcp-alert-service/issues"
+    "url": "https://github.com/florenthemmi/gSlack/issues"
   },
-  "homepage": "https://github.com/doitintl/gcp-alert-service#readme",
+  "homepage": "https://github.com/florenthemmi/gSlack#readme",
   "dependencies": {
     "@google-cloud/datastore": "^1.0.2",
     "base-64": "^0.1.0",
