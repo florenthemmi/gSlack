@@ -33,7 +33,10 @@ exports.pubsubLogSink = function (event, callback) {
                 let clonedData = JSON.parse(JSON.stringify(data));
                 if (test.enabled && runTest(test.test, clonedData)) {
                     let message = evalMessage(test.message, clonedData);
-                    return sendSlack(config.slackChannel, message, config.slackAPIToken, config.slackUsername, config.slackIcon);
+                    return Promise.all([
+                        sendChat(config.chatRoom, message, config.chatAPIKey, config.chatAPIToken),
+                        sendSlack(config.slackChannel, message, config.slackAPIToken, config.slackUsername, config.slackIcon)
+                    ]);
                 }
                 else {
                     return Promise.resolve();
@@ -84,6 +87,23 @@ function runDSQuery(ds, query) {
                 resolve(entities);
             }
         });
+    });
+}
+
+function sendChat(room, message, apiKey, apiToken) {
+    const apiUrl = 'https://dynamite.sandbox.googleapis.com/v1/rooms';
+    const request = require('requestretry');
+
+    return new Promise((resolve, reject) => {
+        request({
+            method: 'POST',
+            url: apiUrl + '/' + room + '/webhooks?key=' + apiKey + '&token=' + apiToken,
+            body: JSON.stringify({'text': message})
+        }).then(function(response) {
+            resolve(response);
+        }), function(err) {
+            reject(err);
+        }
     });
 }
 

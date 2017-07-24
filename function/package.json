@@ -19,6 +19,7 @@
   "dependencies": {
     "@google-cloud/datastore": "^1.0.2",
     "base-64": "^0.1.0",
+    "requestretry": "^1.2.2",
     "slack-node": "^0.1.8"
   }
 }
