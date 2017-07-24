@@ -33,7 +33,7 @@ exports.pubsubLogSink = function (event, callback) {
                 let clonedData = JSON.parse(JSON.stringify(data));
                 if (test.enabled && runTest(test.test, clonedData)) {
                     let message = evalMessage(test.message, clonedData);
-                    return sendSlack(config.slackChannel, message, config.slackAPIToken);
+                    return sendSlack(config.slackChannel, message, config.slackAPIToken, config.slackUsername, config.slackIcon);
                 }
                 else {
                     return Promise.resolve();
@@ -87,7 +87,7 @@ function runDSQuery(ds, query) {
     });
 }
 
-function sendSlack(channel, message, apiToken) {
+function sendSlack(channel, message, apiToken, username, icon) {
     const Slack = require('slack-node');
 
     return new Promise((resolve, reject) => {
@@ -95,7 +95,9 @@ function sendSlack(channel, message, apiToken) {
         slack.api('chat.postMessage', {
             text: message,
             channel: channel,
-            as_user: true
+            as_user: false,
+            username: username,
+            icon_emoji: icon
         }, function (err, response) {
             if (!!err) {
                 reject(err);
